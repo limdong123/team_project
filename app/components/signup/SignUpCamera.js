@@ -36,7 +36,7 @@ const SignUpCamera = ({ navigation, initialProps, route }) => {
 
 
 
-
+    //카메라 촬영 정보 전역변수인 useRecoilState에 저장
     const captureHandle = async () => {
         try {
             const data = await takePicture()
@@ -46,10 +46,6 @@ const SignUpCamera = ({ navigation, initialProps, route }) => {
         } catch (error) {
             console.log(error)
         }
-    }
-
-    const TabToFocus = () => {
-        touchToFocus
     }
 
 

@@ -35,6 +35,8 @@ const RNCameraComponet = ({ navigation, initialProps, route }) => {
 
     const [photo, setPhoto] = useRecoilState(photoState)
 
+
+    //카메라 촬영 데이터 전역 변수인 useRecoilState에 입력
     const captureHandle = async () => {
         try {
             const data = await takePicture()
@@ -44,10 +46,6 @@ const RNCameraComponet = ({ navigation, initialProps, route }) => {
         } catch (error) {
             console.log(error)
         }
-    }
-
-    const TabToFocus = () => {
-        touchToFocus
     }
 
 

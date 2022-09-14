@@ -14,16 +14,13 @@ import CheckBox from '@react-native-community/checkbox';
 
 const Camera = ({ navigation, route }) => {
 
-    const [UserId, setUserId] = React.useState('')
-    const [Select, setSelect] = React.useState('')
+    const [UserId, setUserId] = React.useState('')              //UserId state
+    const [Select, setSelect] = React.useState('')              //Select state
     const [Loading, setLoading] = React.useState(false)
     const [photo, setPhoto] = useRecoilState(photoState)
     const [toggleCheckBox, setToggleCheckBox] = React.useState(false)
 
-    const item = [
-        { label: '성인 인증', value: 'adult', inputLabel: '성인 인증!' },
-    ]
-
+    //폼데이터 생성
     const createFormData = (photo, body = {}) => {
         const data = new FormData();
 
@@ -40,8 +37,8 @@ const Camera = ({ navigation, route }) => {
         return data;
     };
 
-    //10초이상 되면 탈출
-    const TimeoutLoading = setTimeout(() => setLoading(false), 10000)
+    //60초이상 되면 탈출
+    const TimeoutLoading = setTimeout(() => setLoading(false), 60000)
 
     //Alert 버튼 
     const ButtonAlert = (params) => {
@@ -72,10 +69,10 @@ const Camera = ({ navigation, route }) => {
             ]
         )
     }
-
+    //데이터 보내기
     const DataUpLoading = () => {
-        TimeoutLoading
-        if (UserId === '') {
+        TimeoutLoading  //60초 이상 로딩시 탈출
+        if (UserId === '') {            //오류처리
             ButtonAlert('User ID를 입력해주세요')
         } else if (photo === null) {
             ButtonAlert('지문 이미지 다시 촬영해주세요')
@@ -83,8 +80,8 @@ const Camera = ({ navigation, route }) => {
             ButtonAlert('원하는 인증 선택을 해주세요')
         }
         else {
-            setLoading(true)
-            fetch(`${SERVER_URL}/api/upload`, {
+            setLoading(true)            //로딩 시작
+            fetch(`${SERVER_URL}/api/upload`, {     //api/upload 데이터 전송
                 method: 'POST',
                 body: createFormData(photo),
             })
@@ -93,7 +90,7 @@ const Camera = ({ navigation, route }) => {
                     return response.json()
                 })
                 .then(data => {
-                    if (data.what === "matched") {
+                    if (data.what === "matched") {      //지문 매칭될시 SendAuth실행
                         console.log("matched")
                         SendAuth()
                     } else if (data.what === "unmatched") {
@@ -123,7 +120,7 @@ const Camera = ({ navigation, route }) => {
         }
     }
 
-    const SendAuth = () => {
+    const SendAuth = () => {        //본인인증 결과 받고 다음 페이지로 이동
         //fetch(`${SERVER_URL}/api/queryauth/${UserId}`)
         fetch(`${SERVER_URL}/api/queryauth/${UserId}`)
             .then(response => response.json())
@@ -135,18 +132,12 @@ const Camera = ({ navigation, route }) => {
         setPhoto(null)
     }
 
-    const placeholder = {
-        label: '선택',
-        value: null,
-        color: '#9EA0A4'
-    }
-
-    const pickmove = async () => {
+    const pickmove = async () => {              //사진 촬영 전 알림 + 카메라 작동
         PhotoAlert("지문을 빨간 박스안에 넣어주세요")
         navigation.navigate("RNCamera")
     }
 
-    const checkboxClick = (newValue) => {
+    const checkboxClick = (newValue) => {       //인증 선택하는 checkbox
         setToggleCheckBox(newValue)
         if (newValue === true) {
             setSelect('adult')
@@ -276,28 +267,5 @@ const styles = StyleSheet.create({
         margin: 8,
     },
 })
-
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        fontSize: 16,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 4,
-        color: 'black',
-        paddingRight: 30, // to ensure the text is never behind the icon
-    },
-    inputAndroid: {
-        fontSize: 16,
-        paddingHorizontal: 10,
-        paddingVertical: 8,
-        borderWidth: 0.5,
-        borderColor: 'purple',
-        borderRadius: 8,
-        color: 'black',
-        paddingRight: 30, // to ensure the text is never behind the icon
-    },
-});
 
 export default Camera

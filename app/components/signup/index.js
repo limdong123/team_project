@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import { StyleSheet, View, Text, Image, Button, ScrollView, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import SERVER_URL from '../../utils/misc'
 
 import {
@@ -24,7 +23,7 @@ const SignUpComponent = ({ navigation }) => {
     const [Loading, setLoading] = React.useState(false)
     const [photo, setPhoto] = useRecoilState(SignUpPhotoState)
 
-
+    //폼데이터 생성
     const createFormData = (photo, body = {}) => {
         const data = new FormData();
 
@@ -45,14 +44,6 @@ const SignUpComponent = ({ navigation }) => {
     };
 
 
-    // //사진촬영 코드
-    // const handleChoosePhoto = () => {
-    //     launchCamera({}, (response) => {
-    //         console.log('signUp photo data is ', response);
-    //         setPhoto(response)
-    //     });
-    // };
-
     const ButtonAlert = (params) => {
         Alert.alert(
             "오류!",
@@ -67,7 +58,7 @@ const SignUpComponent = ({ navigation }) => {
         )
     }
 
-    const TimeoutLoading = setTimeout(() => setLoading(false), 10000)
+    const TimeoutLoading = setTimeout(() => setLoading(false), 60000)
 
     //파일 전송
     const handleUploadPhoto = () => {
@@ -79,7 +70,7 @@ const SignUpComponent = ({ navigation }) => {
         } else if (Name === '') {
             ButtonAlert('이름을 입력 해주세요')
         } else if (Age === '') {
-            ButtonAlert('나이을 입력 해주세요')
+            ButtonAlert('나이를 입력 해주세요')
         } else if (InFo === '') {
             ButtonAlert('지역을 입력 해주세요')
         }
@@ -92,19 +83,21 @@ const SignUpComponent = ({ navigation }) => {
                 .then(response => {
                     if (response.ok) {
                         console.log('SUCCESS')
-                        //SendAuth()
-                        navigation.navigate('SignupFinish')
                         setPhoto(null)
-                        setLoading(false)
+                        navigation.navigate('SignupFinish')
+                        // setLoading(false)
                     } else {
                         setPhoto(null)
                         setLoading(false)
                         console.log('false')
+                        ButtonAlert("서버 요청 실패")
                     }
                 })
                 .catch((error) => {
                     console.log('error', error);
                     setPhoto(null)
+                    setLoading(false)
+                    ButtonAlert("서버 응답 없음")
                 });
         }
     };
@@ -148,8 +141,8 @@ const SignUpComponent = ({ navigation }) => {
                             placeholder="UserId 입력"
                             placeholderTextColor='gray'
                             onChangeText={(value) => setUserId(value)}
-                            blurOnSubmit={false}
-                            onSubmitEditing={() => ref_input2.current.focus()}
+                            blurOnSubmit={false}    //false = 완료버튼 눌러도 입력창이 안사라짐
+                            onSubmitEditing={() => ref_input2.current.focus()}  //ref_input2로 이동
                         />
                         <TextInput
                             style={styles.TextInput}

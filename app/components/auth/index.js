@@ -1,7 +1,8 @@
 import React from 'react'
-import { Image, StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import hanbat from '../../assetes/images/re07000.jpg'
 import CustomButton from '../../utils/customButton'
+
 
 const AuthComponent = ({ navigation }) => {
     return (

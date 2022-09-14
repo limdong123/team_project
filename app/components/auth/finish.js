@@ -12,7 +12,7 @@ import Unmatched from '../../assetes/images/unmatched.png'
 
 const Finish = ({ navigation, route }) => {
 
-    //아이콘 선업 -> 안씀
+    //아이콘 선업 
     const human = <Icon name='human' size={30} color='black' />
     const human_child = <Icon name='human-child' size={30} color='black' />
     const exclamation_thick = <Icon name='exclamation-thick' size={80} color='black' style={{ marginBottom: 50 }} />
@@ -21,7 +21,6 @@ const Finish = ({ navigation, route }) => {
     const auth = route.params.key
     const data = route.params.Data
 
-    //로딩에 사용
     const [Loading, setLoading] = React.useState(false)
     const [value, setValue] = React.useState(1)
     const [Data, setData] = React.useState(null)

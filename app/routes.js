@@ -8,15 +8,15 @@ import { NavigationContainer } from '@react-navigation/native';
 
 //Screens
 import SignIn from './components/auth/index'
-import Chose from './components/auth/chose'
+// import Chose from './components/auth/chose'
 import Camera from './components/auth/camera'
 import Finish from './components/auth/finish'
-import Matching from './components/auth/matching'
+// import Matching from './components/auth/matching'
 import SignUpComponent from './components/signup/index'
 import SignupFinish from './components/signup/signupFinish'
-import ContractComponent from './components/contract/index'
-import Contract from './components/contract/contract'
-import Contract_Finish from './components/contract/contract_finish'
+// import ContractComponent from './components/contract/index'
+// import Contract from './components/contract/contract'
+// import Contract_Finish from './components/contract/contract_finish'
 import RNCamera from './components/auth/RNCamera'
 import SignUpCamera from './components/signup/SignUpCamera'
 
@@ -73,9 +73,9 @@ export const RootNavigator = () => {
             <AuthStack.Screen name="Finish" component={Finish} options={{ title: '' }} />
             <AuthStack.Screen name="SignUpComponent" component={SignUpComponent} options={{ title: '' }} />
             <AuthStack.Screen name="SignupFinish" component={SignupFinish} options={{ title: '' }} />
-            <AuthStack.Screen name="ContractComponent" component={ContractComponent} options={{ title: '' }} />
+            {/* <AuthStack.Screen name="ContractComponent" component={ContractComponent} options={{ title: '' }} />
             <AuthStack.Screen name="Contract" component={Contract} options={{ title: '' }} />
-            <AuthStack.Screen name="Contract_Finish" component={Contract_Finish} options={{ title: '' }} />
+            <AuthStack.Screen name="Contract_Finish" component={Contract_Finish} options={{ title: '' }} /> */}
             <AuthStack.Screen name="RNCamera" component={RNCamera} options={() => ({ gestureEnabled: false, headerShown: false })} />
             <AuthStack.Screen name="SignUpCamera" component={SignUpCamera} options={() => ({ gestureEnabled: false, headerShown: false })} />
         </AuthStack.Navigator >
